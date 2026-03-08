@@ -3,23 +3,22 @@
 A lightweight, high-reliability automation utility for bypassing
 CAPTCHA-protected authentication on the VTOP portal.
 
-Technical Overview This utility performs an automated "handshake" with the
-**VTOP VIT Bhopal** (https://vtop.vitbhopal.ac.in/vtop/) server to acquire an
-authenticated session.
+## Technical Overview
+
+This utility performs an automated "handshake" with the **VTOP VIT Bhopal**
+(https://vtop.vitbhopal.ac.in/vtop/) server to acquire an authenticated session.
 
 > [!NOTE]
 > This utility is designed and tested exclusively for the **Student Login**
 > portal.
 
-- **Lightweight**: Model and inference engine require only **~40-60MB of RAM**,
-  making it ideal for low-cost VPS and server-side deployment.
-- **Reliable**: Features a 5-stage retry loop. On any failure, a "Hard Reset" is
-  performed—clearing cookies, rotating User-Agents, and re-fetching the login
-  page to ensure a synchronized session.
-- **Fast**: Typical handshake takes **2.5 to 4 seconds** depending on network
-  latency.
-- **Professional**: Designed as a library-first utility with a custom exception
-  hierarchy for robust programmatic error handling.
+- Model and inference engine require only **~40-60MB of RAM**, making it ideal
+  for low-cost VPS and server-side deployment.
+- 5-stage retry loop. On any failure, a hard reset is performed—clearing
+  cookies, rotating User-Agents, and re-fetching the login page.
+- Typical handshake takes **2.5 to 4 seconds** depending on network latency.
+- Designed as a library-first utility with a custom exception hierarchy for
+  robust programmatic error handling.
 - Since the ONNX model runs locally, the project has zero external API
   dependencies and requires **no API keys**.
 
@@ -79,4 +78,4 @@ contents of `handshake.log`._
 
 ---
 
-_Developed for research and development purposes._
+_Developed for research, development, and educational purposes._

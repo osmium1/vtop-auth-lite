@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vtop-auth-lite"
+version = "0.1.0"
+description = "A lightweight, ONNX-powered session handshake utility for VTOP VIT Bhopal."
+readme = "README.md"
+authors = [{ name = "Omjay", email = "omjay@example.com" }]
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "onnxruntime",
+    "requests",
+    "beautifulsoup4",
+    "tenacity",
+    "colorama",
+    "pillow",
+    "numpy",
+]
+requires-python = ">=3.12"
+
+[project.urls]
+"Homepage" = "https://vtop.vitbhopal.ac.in/vtop/"
+
+[project.scripts]
+vtop-auth = "vtop_auth_lite.__main__:main"
+
+[tool.setuptools]
+packages = ["vtop_auth_lite"]
+package-data = {"vtop_auth_lite" = ["models/*.onnx"]}

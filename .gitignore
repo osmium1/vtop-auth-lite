@@ -1,0 +1,30 @@
+# Environments
+venv/
+venv_gpu/
+.venv/
+env/
+
+# Credentials
+.env
+
+# Logs
+*.log
+logs/
+
+# Research & Exploratory Data
+handshake_research_assets/
+archive/
+docs/
+extractors/
+*.har
+*.png
+*.html
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# OS Specific
+.DS_Store
+Thumbs.db

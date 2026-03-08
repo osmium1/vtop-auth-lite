@@ -1,0 +1,7 @@
+onnxruntime
+requests
+beautifulsoup4
+tenacity
+colorama
+pillow
+numpy

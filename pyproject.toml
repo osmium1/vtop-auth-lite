@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "vtop-auth-lite"
-version = "0.1.1"
+version = "0.1.2"
 description = "A lightweight, ONNX-powered session handshake utility for VTOP VIT Bhopal."
 readme = "README.md"
 authors = [{ name = "Omjay", email = "omjay@example.com" }]
@@ -17,7 +17,6 @@ classifiers = [
 dependencies = [
     "onnxruntime",
     "requests",
-    "beautifulsoup4",
     "tenacity",
     "pillow",
     "numpy",

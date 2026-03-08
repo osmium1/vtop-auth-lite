@@ -1,6 +1,5 @@
 onnxruntime
 requests
-beautifulsoup4
 tenacity
 pillow
 numpy

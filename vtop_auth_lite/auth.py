@@ -1,5 +1,5 @@
+import re
 import logging
-from bs4 import BeautifulSoup
 from .session import VTOPSessionManager
 from .exceptions import AuthenticationFailedError, CaptchaSolverError, NetworkConnectivityError
 
@@ -18,10 +18,12 @@ class VTOPAuth:
         
     def _extract_csrf(self, html_content: str) -> str:
         """Parses the HTML to find the _csrf input field."""
-        soup = BeautifulSoup(html_content, 'html.parser')
-        csrf_input = soup.find('input', {'name': '_csrf'})
-        if csrf_input:
-            return csrf_input.get('value')
+        match = re.search(r'name="_csrf"\s+value="([^"]+)"', html_content)
+        if not match:
+            match = re.search(r'value="([^"]+)"\s+name="_csrf"', html_content)
+            
+        if match:
+            return match.group(1)
         
         logger.error("CSRF token missing from response.")
         raise NetworkConnectivityError("CSRF token missing from VTOP response.")
@@ -30,16 +32,18 @@ class VTOPAuth:
         """Fetches and solves a fresh CAPTCHA image."""
         logger.debug("Generating fresh CAPTCHA...")
         captcha_frag_res = self.session_manager.fetch('GET', '/vtop/get/new/captcha')
-        soup = BeautifulSoup(captcha_frag_res.text, 'html.parser')
+        html = captcha_frag_res.text
         
-        img_tag = soup.find('img', src=lambda s: s and s.startswith('data:image'))
-        if not img_tag:
-            img_tag = soup.find('img', {'id': 'captchaRefresh'})
+        # Search for data:image or standard src in the img tag
+        match = re.search(r'<img[^>]+src="([^"]+)"', html)
+        if not match:
+             # Fallback for single quotes or non-standard ordering
+             match = re.search(r"src=[']([^']+)[']", html)
             
-        if not img_tag:
+        if not match:
             raise NetworkConnectivityError("Failed to locate CAPTCHA image tag.")
             
-        captcha_url = img_tag.get('src')
+        captcha_url = match.group(1)
         
         if captcha_url.startswith('data:image'):
             import base64

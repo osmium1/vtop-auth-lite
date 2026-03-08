@@ -1,3 +1,4 @@
+import re
 import sys
 import logging
 import argparse
@@ -44,12 +45,12 @@ def main():
             # Fetch final authenticated CSRF
             dashboard_res = session_manager.fetch('GET', '/vtop/content')
             
-            from bs4 import BeautifulSoup
-            soup = BeautifulSoup(dashboard_res.text, 'html.parser')
-            csrf_input = soup.find('input', {'name': '_csrf'})
+            csrf_match = re.search(r'name="_csrf"\s+value="([^"]+)"', dashboard_res.text)
+            if not csrf_match:
+                csrf_match = re.search(r'value="([^"]+)"\s+name="_csrf"', dashboard_res.text)
             
-            if csrf_input:
-                print(csrf_input.get('value'))
+            if csrf_match:
+                print(csrf_match.group(1))
             else:
                 print("CSRF_NOT_FOUND")
                 sys.exit(1)

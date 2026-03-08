@@ -25,20 +25,23 @@ This utility performs an automated "handshake" with the **VTOP VIT Bhopal**
 ## Installation
 
 1. Install Python 3.12+.
-2. Install the package locally:
+2. Install the package via pip:
    ```powershell
-   pip install .
+   pip install vtop-auth-lite
    ```
 
 ## Integration
 
 ### CLI Usage
 
-Run the utility to acquire a session-active CSRF:
+You can run the handshake via the global `vtop-auth` command:
 
 ```powershell
-python -m vtop_auth_lite <USERNAME> <PASSWORD>
+vtop-auth <USERNAME> <PASSWORD>
 ```
+
+_(Alternatively, you can run as a module:
+`python -m vtop_auth_lite <USERNAME> <PASSWORD>`)_
 
 ### Programmatic Usage
 
